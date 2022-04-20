@@ -62,7 +62,7 @@ def create_model(name="network_v0.5"):
     return  model_1
 
 
-def save_model(model, name=None):
+def save_model(model, name=None, folder="storedANN"):
     """
         Save as model.h5, model_weights.h5, and model.json
 
@@ -72,9 +72,9 @@ def save_model(model, name=None):
     if name is None:
         name = model.name
 
-    model.save(name + '.h5')
-    model.save_weights(name + '_weights.h5')
-    with open(name + '.json', 'w') as outfile:
+    model.save(folder + "/" + name + '.h5')
+    model.save_weights(folder + "/" + name + '_weights.h5')
+    with open(folder + "/" + name + '.json', 'w') as outfile:
         outfile.write(model.to_json())
     return
 
