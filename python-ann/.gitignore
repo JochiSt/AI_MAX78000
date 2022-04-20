@@ -1,0 +1,3 @@
+# TensorFlow / Keras Output
+*.h5
+*.json
