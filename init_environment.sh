@@ -24,6 +24,9 @@ pip3 install -r requirements_tf.txt
 # matplotlib is needed as well
 pip3 install matplotlib
 
+# since we want to get a nice image of the ANN
+pip3 install pydot
+
 # we are done with this folder, deactivate environment
 deactivate
 
