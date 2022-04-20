@@ -51,7 +51,7 @@ def create_model(name="network_v0.5"):
 
     # save an image of the ANN
     tf.keras.utils.plot_model(model_1, 
-            to_file='model_1.png',        # output file name
+            to_file=name+".png",          # output file name
             #show_layer_activations=True,  # show activation functions
             show_layer_names=True,        # show layer names
             show_dtype=True,              # show datatype
