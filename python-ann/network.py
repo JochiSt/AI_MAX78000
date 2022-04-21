@@ -10,7 +10,7 @@ from tensorflow import keras
 # number of samples for training, testing etc.
 SAMPLES = 100000
 
-def create_model(name="network_v0.5"):
+def create_model(name="network_MAX78000_v0.1"):
     """
         
     """
