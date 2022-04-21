@@ -7,6 +7,13 @@ export AI_PROJECT_ROOT=`pwd`
 # --force to really ensure a fresh environment
 git submodule update --init --recursive --force
 
+PYTHONVERS=`python -c "import sys; print(''.join(map(str, sys.version_info[:2])))"`
+
+if [ "$PYTHONVERS" -lt "37" ] 
+then
+    echo "Python Version $PYTHONVERS not supported python >= 3.7 needed!"
+    exit -1
+fi
 ################################################################################
 # prepare ai8x-training venv
 echo "INIT ai8x-training ..."
@@ -39,6 +46,10 @@ cd $AI_PROJECT_ROOT
 ################################################################################
 # prepare ai8x-synthesis venv
 echo "INIT ai8x-synthesis ..."
+
+# we have to make sure python version > 3.6, because otherwise numpy is limited 
+# to <1.20, which is a problem here.
+
 cd ai8x-synthesis
 python3 -m venv .
 
