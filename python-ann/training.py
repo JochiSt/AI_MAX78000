@@ -15,7 +15,7 @@ from network import create_model, save_model
 # number of samples for training, testing etc.
 SAMPLES = 100000
 
-def generate_training_data():
+def generate_training_data(samples, P_width, P_position, P_height, P_offset):
     """
         generate the training + validation dataset
     """
@@ -23,12 +23,12 @@ def generate_training_data():
     x_values = []
 
     # generate the waveforms
-    for i in range(SAMPLES):
+    for i in range(samples):
         # use random settings
-        width = np.random.randint( *P_width )       # width
-        position = np.random.randint( *P_position ) # limit position into a certain window
-        height = np.random.randint( *P_height )     # pulse height
-        offset = np.random.randint( *P_offset )     # constant offset
+        width    = np.random.randint( *P_width )      # width
+        position = np.random.randint( *P_position )   # limit position into a certain window
+        height   = np.random.randint( *P_height )     # pulse height
+        offset   = np.random.randint( *P_offset )     # constant offset
 
         x_values.append( (width/SCALE_WIDTH, position/SCALE_POS, height/SCALE_HEIGHT) )
         y_values.append( generate_waveform(position = position, pulse_length = width, height=height, noise=noise, offset=offset) / SCALE_HEIGHT )
