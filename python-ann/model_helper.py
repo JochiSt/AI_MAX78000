@@ -7,6 +7,8 @@ from tensorflow import keras
 def getFLOPS(model):
     """
         get FLOPS of the model
+
+        2 FLOPS is about one MACC
     """
     # from https://github.com/tensorflow/tensorflow/issues/32809#issuecomment-768977280
     from tensorflow.python.framework.convert_to_constants import  convert_variables_to_constants_v2_as_graph
