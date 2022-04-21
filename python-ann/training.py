@@ -46,7 +46,7 @@ if __name__ == "__main__":
     print("using %d points for training and %d points for testing"%(TRAIN_SPLIT, TEST_SPLIT))
 
     # generate the training data
-    x_values, y_values = generate_training_data()
+    x_values, y_values = generate_training_data(SAMPLES, P_width, P_position, P_height, P_offset)
 
     # convert data into numpy arrays
     y_values = np.array(y_values) # parameters
