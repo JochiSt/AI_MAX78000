@@ -16,6 +16,9 @@ from network import create_model, save_model
 SAMPLES = 100000
 
 def generate_training_data():
+    """
+        generate the training + validation dataset
+    """
     y_values = []
     x_values = []
 
@@ -65,6 +68,5 @@ if __name__ == "__main__":
     save_model(model_1)
 
     # pruning + quantisation
-
 
 
