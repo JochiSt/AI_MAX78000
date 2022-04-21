@@ -3,17 +3,18 @@
 # set project root folder
 export AI_PROJECT_ROOT=`pwd`
 
-# update all submodules
-# --force to really ensure a fresh environment
-git submodule update --init --recursive --force
-
+# check python version
 PYTHONVERS=`python -c "import sys; print(''.join(map(str, sys.version_info[:2])))"`
-
 if [ "$PYTHONVERS" -lt "37" ] 
 then
     echo "Python Version $PYTHONVERS not supported python >= 3.7 needed!"
     exit -1
 fi
+
+# update all submodules
+# --force to really ensure a fresh environment
+git submodule update --init --recursive --force
+
 ################################################################################
 # prepare ai8x-training venv
 echo "INIT ai8x-training ..."
