@@ -4,6 +4,10 @@ import tensorflow as tf
 # Keras is TensorFlow's high-level API for deep learning
 from tensorflow import keras
 
+# import ONNX for exporting the keras model
+import onnx
+import tf2onnx
+
 def getFLOPS(model):
     """
         get FLOPS of the model
@@ -38,6 +42,46 @@ def save_model(model, name=None, folder="storedANN"):
     model.save_weights(folder + "/" + name + '_weights.h5')
     with open(folder + "/" + name + '.json', 'w') as outfile:
         outfile.write(model.to_json())
+    return
+
+def save_model_ONNX(model, name=None, folder="storedANN"):
+    # based on https://medium.com/nerd-for-tech/how-to-convert-tensorflow2-model-to-onnx-using-tf2onnx-when-there-is-custom-ops-6e703376ef20
+    # 1. Load the Tensorflow Model <- skipped, because we have already TF model loaded
+
+    # 2. Convert the Model to Concrete Function
+    full_model = tf.function(lambda inputs: model(inputs))    
+    full_model = full_model.get_concrete_function([tf.TensorSpec(model_input.shape, model_input.dtype) for model_input in model.inputs])
+
+    # 2.1 Persist the Input and Output Parameters
+    input_names = [inp.name for inp in full_model.inputs]
+    output_names = [out.name for out in full_model.outputs]
+    print("Inputs:", input_names)
+    print("Outputs:", output_names)
+
+    # 3. Freeze the Model
+    from tensorflow.python.framework.convert_to_constants import convert_variables_to_constants_v2
+    frozen_func = convert_variables_to_constants_v2(full_model)
+    frozen_func.graph.as_graph_def()
+
+    # 4. Convert the Model in Single Step by using Extra Opset [Critical Code]
+    from tf2onnx import tf_loader
+    from tf2onnx.tfonnx import process_tf_graph
+    from tf2onnx.optimizer import optimize_graph
+    from tf2onnx import utils, constants
+    from tf2onnx.handler import tf_op
+
+    extra_opset = [utils.make_opsetid(constants.CONTRIB_OPS_DOMAIN, 1)]
+    with tf.Graph().as_default() as tf_graph:
+        tf.import_graph_def(frozen_func.graph.as_graph_def(), name='')
+
+    with tf_loader.tf_session(graph=tf_graph):
+        g = process_tf_graph(tf_graph, input_names=input_names, output_names=output_names, extra_opset=extra_opset)
+
+    onnx_graph = optimize_graph(g)
+    model_proto = onnx_graph.make_model(model.name+"conv")
+    utils.save_protobuf(folder+"/"+model.name+".onnx", model_proto)
+    print("Conversion complete!")
+
     return
 
 def save_model_image(model):
