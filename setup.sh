@@ -27,3 +27,5 @@ if [ $? -eq 1 ] ; then
     RISCVGCC_DIR=$RISCV_GCC_DIR
     export RISCVGCC_DIR
 fi
+
+export MAXIM_PATH="$AI_PROJECT_ROOT/ai8x-synthesis/sdk/"
