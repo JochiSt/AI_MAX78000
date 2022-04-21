@@ -9,9 +9,6 @@ from tensorflow import keras
 
 from model_helper import *
 
-# number of samples for training, testing etc.
-SAMPLES = 100000
-
 def create_model(name="network_MAX78000_v0.1"):
     """
         
@@ -78,15 +75,7 @@ def create_model(name="network_MAX78000_v0.1"):
     # Compile the model using the standard 'adam' optimizer and the mean squared error or 'mse' loss function for regression.
     model_1.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 
-    # save an image of the ANN
-    tf.keras.utils.plot_model(model_1, 
-            to_file=name+".png",          # output file name
-            #show_layer_activations=True,  # show activation functions
-            show_layer_names=True,        # show layer names
-            show_dtype=True,              # show datatype
-            show_shapes=True,             # show input / output shapes
-            rankdir='LR'                  # left to right image
-        )
+    save_model_image(model_1)
 
     return  model_1
 

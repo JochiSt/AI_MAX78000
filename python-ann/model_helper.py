@@ -37,3 +37,14 @@ def save_model(model, name=None, folder="storedANN"):
     with open(folder + "/" + name + '.json', 'w') as outfile:
         outfile.write(model.to_json())
     return
+
+def save_model_image(model):
+    # save an image of the ANN
+    tf.keras.utils.plot_model(model, 
+            to_file=model.name+".png",    # output file name
+            #show_layer_activations=True,  # show activation functions
+            show_layer_names=True,        # show layer names
+            show_dtype=True,              # show datatype
+            show_shapes=True,             # show input / output shapes
+            rankdir='LR'                  # left to right image
+        )
