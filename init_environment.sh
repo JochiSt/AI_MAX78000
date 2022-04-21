@@ -32,8 +32,16 @@ pip3 install -r requirements_tf.txt
 # matplotlib is needed as well
 pip3 install matplotlib
 
+# was needed
+pip3 install tensorflow
+pip3 install tensorflow_datasets
+
+# install converter to ONNX format
+pip3 install tf2onnx
+
 # since we want to get a nice image of the ANN
 pip3 install pydot
+
 
 # we are done with this folder, deactivate environment
 deactivate
