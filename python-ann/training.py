@@ -10,7 +10,7 @@ from generate_waveform import generate_waveform
 from parameters import *
 
 # import network / model related functions
-from network import create_model, save_model
+from network import create_model, save_model, save_model_ONNX
 
 def generate_training_data(samples, P_width, P_position, P_height, P_offset):
     """
@@ -65,6 +65,7 @@ if __name__ == "__main__":
     history_1 = model_1.fit(y_train, x_train, epochs=50, batch_size=333, validation_data=(y_validate, x_validate))
 
     save_model(model_1)
+    save_model_ONNX(model_1)
 
     # pruning + quantisation
 
