@@ -59,11 +59,11 @@ pip3 install --upgrade pip
 pip3 install -U pip wheel setuptools
 pip3 install -r requirements.txt
 
-pip3 install matplotlib
+#pip3 install matplotlib
 
 # install pytorch for generating the examples
-# somehow gen-tf-demos-max78000.sh needs pyTorch
-pip3 install torch
+# somehow gen-tf-demos-max78000.sh needs pyTorch and some other packages
+#pip3 install torch colorama onnx onnxruntime pyyaml yamllint
 
 # deactivate environment
 deactivate
