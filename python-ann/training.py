@@ -12,9 +12,6 @@ from parameters import *
 # import network / model related functions
 from network import create_model, save_model
 
-# number of samples for training, testing etc.
-SAMPLES = 100000
-
 def generate_training_data(samples, P_width, P_position, P_height, P_offset):
     """
         generate the training + validation dataset
@@ -36,6 +33,8 @@ def generate_training_data(samples, P_width, P_position, P_height, P_offset):
     return x_values, y_values
 
 if __name__ == "__main__":
+    # number of samples for training, testing etc.
+    SAMPLES = 100000
 
     # generate the network
     model_1 = create_model()
