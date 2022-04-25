@@ -3,8 +3,16 @@
 # set project root folder
 export AI_PROJECT_ROOT=`pwd`
 
-# check python version
+# check, whether python is there at all
 PYTHONVERS=`python -c "import sys; print(''.join(map(str, sys.version_info[:2])))"`
+# if this is empty, it is rather likely, that we have to use python3
+if [ -z "$PYTHONVERS" ]
+then
+	# check python version
+	PYTHONVERS=`python3 -c "import sys; print(''.join(map(str, sys.version_info[:2])))"`
+fi
+
+# check python version
 if [ "$PYTHONVERS" -lt "37" ] 
 then
     echo "Python Version $PYTHONVERS not supported python >= 3.7 needed!"
